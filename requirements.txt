@@ -1,0 +1,9 @@
+langchain>=0.3.0
+langgraph>=0.4.0
+fastapi>=0.115.0
+uvicorn>=0.34.0
+jinja2>=3.1.0
+pyppeteer>=2.0.0
+requests>=2.32.0
+beautifulsoup4>=4.13.0
+python-multipart>=0.0.9

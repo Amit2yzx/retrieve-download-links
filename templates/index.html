@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}URL Analyzer - Home{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title h5 mb-0">Enter URL to Analyze</h2>
+    </div>
+    <div class="card-body">
+        <form id="url-form" action="/analyze-form" method="post" onsubmit="showLoading()">
+            <div class="mb-3">
+                <label for="url" class="form-label">URL</label>
+                <input type="url" class="form-control" id="url" name="url" placeholder="https://example.com/download-page" required>
+                <div class="form-text">Enter any URL that contains or leads to downloadable content</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Analyze URL</button>
+        </form>
+        
+        <div id="loading" class="loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Analyzing URL... This may take a few moments.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2 class="card-title h5 mb-0">How It Works</h2>
+    </div>
+    <div class="card-body">
+        <ol>
+            <li>Enter a URL that contains or leads to downloadable content</li>
+            <li>Our AI agent analyzes the page using LangGraph</li>
+            <li>If needed, Puppeteer is used to handle dynamic content</li>
+            <li>Download links are extracted and the best one is recommended</li>
+            <li>You get direct access to the download without navigating through ads or waiting</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function showLoading() {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('url-form').querySelector('button').disabled = true;
+    }
+</script>
+{% endblock %}

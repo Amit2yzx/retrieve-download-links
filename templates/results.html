@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}URL Analysis Results{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title h5 mb-0">Analysis Results</h2>
+    </div>
+    <div class="card-body">
+        <h3 class="h5">URL: <a href="{{ result.url }}" target="_blank">{{ result.url }}</a></h3>
+        
+        {% if result.title %}
+        <p><strong>Page Title:</strong> {{ result.title }}</p>
+        {% endif %}
+        
+        {% if result.content_type %}
+        <p><strong>Content Type:</strong> {{ result.content_type }}</p>
+        {% endif %}
+        
+        {% if result.is_direct_download %}
+        <div class="alert alert-success">
+            <p><strong>Direct Download Link Detected!</strong></p>
+            <a href="{{ result.recommended_link }}" class="btn btn-success mt-2" target="_blank">Download Now</a>
+        </div>
+        {% elif result.recommended_link %}
+        <div class="alert alert-info">
+            <p><strong>Download Link Found!</strong></p>
+            <a href="{{ result.recommended_link }}" class="btn btn-primary mt-2" target="_blank">Download Now</a>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+            <p><strong>No download links found.</strong></p>
+        </div>
+        {% endif %}
+        
+        {% if result.download_links and result.download_links|length > 1 %}
+        <div class="mt-4">
+            <h4 class="h6">All Download Links Found:</h4>
+            <ul class="list-group">
+                {% for link in result.download_links %}
+                <li class="list-group-item">
+                    <a href="{{ link }}" target="_blank">{{ link }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="/" class="btn btn-secondary">Analyze Another URL</a>
+</div>
+{% endblock %}
